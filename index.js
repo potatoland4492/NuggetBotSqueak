@@ -13,7 +13,7 @@ const gitrepo = 'https://github.com/potatoland4492/NuggetBotSqueak';
 // Developer Mode
 const devmode = false;
 // Run ID: https://passwordsgenerator.net/?length=6&symbols=0&numbers=1&lowercase=1&uppercase=0&similar=1&ambiguous=1&client=1&autoselect=1
-const runid = '0003';
+const runid = '0004';
 
 // Leafy's Discord ID
 const leafid = '489608179810959390';
@@ -354,8 +354,8 @@ bot.on('message', async message => {
 							{ name: `Bot Invite`, value: `${invite}` },
 							{ name: `Development Server`, value: `https://discord.gg/zB49aFyd2N` },
 							{ name: `Git Repository`, value: `${gitrepo}` },
-							{ name: `Run ID`, value: `${runid}` },
-							{ name: `Developer Mode`, value: `${devmode}` },
+							{ name: `Run ID`, value: `\`${runid}\`` },
+							{ name: `Developer Mode`, value: `\`${devmode}\`` },
 						)
 					);
 				} else {
