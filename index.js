@@ -399,7 +399,7 @@ bot.on('message', async message => {
 					.setDescription(`Name: ${guild.name}
 					Description: ${guild.description}
 					Member Count: ${guild.memberCount}
-					Guild Owner: <@!${guild.ownerId}>
+					Guild Owner: ${guild.owner}
 					Guild Birthday: ${fromdat(guild.createdAt)}
 					Updates Channel: ${guild.publicUpdatesChannel}
 					Rules Channel: ${guild.rulesChannel}
