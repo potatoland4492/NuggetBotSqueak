@@ -13,7 +13,7 @@ const gitrepo = 'https://github.com/potatoland4492/NuggetBotSqueak';
 // Developer Mode
 const devmode = false;
 // Run ID: https://passwordsgenerator.net/?length=6&symbols=0&numbers=1&lowercase=1&uppercase=0&similar=1&ambiguous=1&client=1&autoselect=1
-const runid = '0004';
+const runid = '0005';
 
 // Leafy's Discord ID
 const leafid = '489608179810959390';
@@ -386,7 +386,7 @@ bot.on('message', async message => {
 
 			case 'arson':
 				if (message.author.id === leafid) {message.channel.send(`<@!${leafid}> burned himself at the stake.`);}
-				let arsonarray = ['the White House!', 'the Pentagon.', 'the Statue of Liberty!', 'their own house! XD', 'their school.', 'a little carroting potato (who probably deserved it).', `Microsoft\'s headquarters? Three cheers for ${message.author}!`, 'a 7-Eleven. :-(', 'a Noodle Shop...', `\`${config.prefix}egg\``, 'their neighbor\'s house!', 'a potato masquerading as a potato. *Hmmmmm.....*'];
+				let arsonarray = ['the White House!', 'the Pentagon.', 'the Statue of Liberty!', 'their own house! XD', 'their school.', 'a little carroting potato (who probably deserved it).', `Microsoft\'s headquarters? Three cheers for ${message.author}!`, 'a 7-Eleven. :-(', 'a Noodle Shop...', 'their neighbor\'s house!', 'a potato masquerading as a potato. *Hmmmmm.....*'];
 				let arsonindex = Math.round(Math.random() * (arsonarray.length - 1));
 				message.channel.send(`${message.author} burned down ${arsonarray[arsonindex]}`);
 				break;
