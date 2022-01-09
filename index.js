@@ -11,9 +11,9 @@ const invite = 'https://discord.com/api/oauth2/authorize?client_id=9157265056639
 const gitrepo = 'https://github.com/potatoland4492/NuggetBotSqueak';
 
 // Developer Mode
-const devmode = true;
+const devmode = false;
 // Run ID: https://passwordsgenerator.net/?length=6&symbols=0&numbers=1&lowercase=1&uppercase=0&similar=1&ambiguous=1&client=1&autoselect=1
-const runid = 'k8d6m2';
+const runid = '000001';
 
 // Leafy's Discord ID
 const leafid = '489608179810959390';
