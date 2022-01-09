@@ -13,10 +13,12 @@ const gitrepo = 'https://github.com/potatoland4492/NuggetBotSqueak';
 // Developer Mode
 const devmode = false;
 // Run ID: https://passwordsgenerator.net/?length=6&symbols=0&numbers=1&lowercase=1&uppercase=0&similar=1&ambiguous=1&client=1&autoselect=1
-const runid = '000001';
+const runid = '0002';
 
 // Leafy's Discord ID
 const leafid = '489608179810959390';
+// Developer Discord IDs: Akhil, Ethan
+const devids = [id, '662780533406826531']
 
 console.log("Creating Client;");
 
@@ -297,7 +299,7 @@ bot.on('message', async message => {
 		let guild = message.guild;
     switch (command) {
 			case 'test':
-				if (message.author.id != id) {
+				if (!devids.includes(message.author.id)) {
 					message.reply("You are not allowed to execute this command.")
 					break;
 				} else if (!args[0]) {
@@ -336,6 +338,30 @@ bot.on('message', async message => {
 						{ name: `Git Repository`, value: `${gitrepo}`},
 					)
 					).catch(console.error('VersionEmbed Error'));
+				break;
+
+			case 'dev':
+			case 'developer':
+				if (devids.includes(message.author.id)) {
+					message.channel.send(new MessageEmbed()
+						.setTitle("Developer Info")
+						.setColor('RED')
+						.addFields(
+							{ name: `Version`, value: `\`${version}\`` },
+							{ name: `Developer Contact`, value: `@akhilzebra#4492` },
+							{ name: `Language`, value: `Node.js` },
+							{ name: `Discord API Library`, value: `Discord.js` },
+							{ name: `Bot Invite`, value: `${invite}` },
+							{ name: `Development Server`, value: `https://discord.gg/zB49aFyd2N` },
+							{ name: `Git Repository`, value: `${gitrepo}` },
+							{ name: `Run ID`, value: `${runid}` },
+							{ name: `Developer Mode`, value: `${devmode}` },
+							{ name: ``, value: `` },
+						)
+					);
+				} else {
+					message.reply("You are not allowed to run this command because you are not a bot developer. Please contact `@akhilzebra#4492` if you have questions or would like to help develop this bot.")
+				}
 				break;
 
 			case 'invite':

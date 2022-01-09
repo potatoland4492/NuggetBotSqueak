@@ -3,6 +3,11 @@ module.exports = {
 		description: 'Returns version notes.',
 		format: 'version'
 	},
+	'developer': {
+		aliases: ['dev'],
+		description: 'Returns developer info. Not for public use.',
+		format: 'developer'
+	},
 	'invite': {
 		aliases: ['link'],
 		description: 'Returns a URL to the bot invite page.',
