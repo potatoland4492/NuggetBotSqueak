@@ -1,6 +1,8 @@
 const app = require('express')();
 
-app.get('/', (req, res) => res.send("IT'S ALIVE!!! Yeah, the bot's ready. Now close this and get back to Discord."));
+app.get('/', (req, res) => res.send(`
+<h1>Website Under Development</h1>
+`));
 
 module.exports = () => {
   app.listen(3000);
