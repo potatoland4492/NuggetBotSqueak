@@ -13,7 +13,7 @@ const gitrepo = 'https://github.com/potatoland4492/NuggetBotSqueak';
 // Developer Mode
 const devmode = false;
 // Run ID: https://passwordsgenerator.net/?length=6&symbols=0&numbers=1&lowercase=1&uppercase=0&similar=1&ambiguous=1&client=1&autoselect=1
-const runid = '0005';
+const runid = '0006';
 
 // Leafy's Discord ID
 const leafid = '489608179810959390';
@@ -23,13 +23,13 @@ const devids = [id, '662780533406826531']
 console.log("Creating Client;");
 
 let bot = new Client({
-  presence: {
-    status: 'online',
-    activity: {
-      name: `${config.prefix}help`,
-      type: 'PLAYING'
-    }
-  }
+	presence: {
+		status: 'online',
+		activity: {
+			name: `${config.prefix}help`,
+			type: 'PLAYING'
+		}
+	}
 });
 
 
@@ -49,12 +49,12 @@ function fromdat(newDate) {
 }
 function dat() {
 	let d = new Date();
-  let localTime = d.getTime();
-  let localOffset = d.getTimezoneOffset() * 60000;
-  let utc = localTime + localOffset;
+	let localTime = d.getTime();
+	let localOffset = d.getTimezoneOffset() * 60000;
+	let utc = localTime + localOffset;
 	let target_offset = -8;	// PST from UTC 8 hours behind
-  let los_angles = utc+(3600000*target_offset);
-  nd = new Date(los_angles);
+	let los_angles = utc + (3600000 * target_offset);
+	nd = new Date(los_angles);
 	return fromdat(nd);
 }
 
@@ -69,7 +69,7 @@ bot.on('ready', () => {
 			}
 		});
 		console.log("Mode: Developer;");
-	}	else {
+	} else {
 		console.log("Mode: Stable;")
 	}
 	console.log(`Run ID: ${runid}`);
@@ -219,7 +219,7 @@ bot.on('inviteCreate', async invite => {
 		Created Timestamp: ${fromdat(invite.createdAt)}
 		Expiration Timestamp: ${fromdat(invite.expiresAt)}
 		Created By: ${invite.inviter}
-		Maximum Age: ${invite.maxAge/86400}
+		Maximum Age: ${invite.maxAge / 86400}
 		Maximum Uses: ${invite.maxUses}
 		Temporary Invite: ${invite.temporary}`)
 	);
@@ -277,7 +277,7 @@ bot.on('guildScheduledEventDelete', async event => {
 });
 
 bot.on('message', async message => {
-  // Censoring
+	// Censoring
 	let swears = ['fuck', 'bitch', 'arse', 'ass', 'dick', 'shit', 'cock', 'coc'];
 	for (i = 0; i < swears.length; i++) {
 		if (message.content.includes(swears[i])) {
@@ -287,17 +287,17 @@ bot.on('message', async message => {
 		}
 	}
 
-  if (message.content.startsWith(config.prefix)) {
+	if (message.content.startsWith(config.prefix)) {
 		if (message.author.bot) {
 			return;
 		} else if (devmode && message.author.id != id) {
 			message.reply("Developer Mode is on. You are not allowed to use this bot.");
-		return;
+			return;
 		}
-    let args = message.content.slice(config.prefix.length).split(' ');
-    let command = args.shift().toLowerCase();
+		let args = message.content.slice(config.prefix.length).split(' ');
+		let command = args.shift().toLowerCase();
 		let guild = message.guild;
-    switch (command) {
+		switch (command) {
 			case 'test':
 				if (!devids.includes(message.author.id)) {
 					message.reply("You are not allowed to execute this command.")
@@ -327,17 +327,17 @@ bot.on('message', async message => {
 					.setTitle(`NuggetBotSqueak \`${version}\``)
 					.setColor("#ff00ff")
 					.setFooter(`Requested by: ${message.member ? message.member.displayName : message.author.username}`, message.author.displayAvatarURL())
-          .setThumbnail(bot.user.displayAvatarURL())
+					.setThumbnail(bot.user.displayAvatarURL())
 					.addFields(
-						{ name: `Bot Version`, value: `\`${version}\``},
-						{ name: `Head Developer`, value: `Akhil Pillai (@akhilzebra#4492) [\`<@!${id}\`>]`},
+						{ name: `Bot Version`, value: `\`${version}\`` },
+						{ name: `Head Developer`, value: `Akhil Pillai (@akhilzebra#4492) [\`<@!${id}\`>]` },
 						{ name: `Language`, value: `Node.js` },
 						{ name: `Discord API Interaction Library`, value: `Discord.js` },
 						{ name: `Bot Invite Link`, value: `${invite}` },
 						{ name: `Development Server`, value: `https://discord.gg/zB49aFyd2n` },
-						{ name: `Git Repository`, value: `${gitrepo}`},
+						{ name: `Git Repository`, value: `${gitrepo}` },
 					)
-					).catch(console.error('VersionEmbed Error'));
+				).catch(console.error('VersionEmbed Error'));
 				break;
 
 			case 'dev':
@@ -370,8 +370,8 @@ bot.on('message', async message => {
 					.setDescription(invite)
 					.setColor("#ff00ff")
 					.setFooter(`Requested by: ${message.member ? message.member.displayName : message.author.username}`, message.author.displayAvatarURL())
-          .setThumbnail(bot.user.displayAvatarURL())
-					).catch(console.error('InviteLinkEmbed Error'));
+					.setThumbnail(bot.user.displayAvatarURL())
+				).catch(console.error('InviteLinkEmbed Error'));
 				break;
 
 			case 'status':
@@ -380,12 +380,12 @@ bot.on('message', async message => {
 					.setDescription("https://stats.uptimerobot.com/oJ59mUD826")
 					.setColor("#ff00ff")
 					.setFooter(`Requested by: ${message.member ? message.member.displayName : message.author.username}`, message.author.displayAvatarURL())
-          .setThumbnail(bot.user.displayAvatarURL())
-					);
+					.setThumbnail(bot.user.displayAvatarURL())
+				);
 				break;
 
 			case 'arson':
-				if (message.author.id === leafid) {message.channel.send(`<@!${leafid}> burned himself at the stake.`);}
+				if (message.author.id === leafid) { message.channel.send(`<@!${leafid}> burned himself at the stake.`); }
 				let arsonarray = ['the White House!', 'the Pentagon.', 'the Statue of Liberty!', 'their own house! XD', 'their school.', 'a little carroting potato (who probably deserved it).', `Microsoft\'s headquarters? Three cheers for ${message.author}!`, 'a 7-Eleven. :-(', 'a Noodle Shop...', 'their neighbor\'s house!', 'a potato masquerading as a potato. *Hmmmmm.....*'];
 				let arsonindex = Math.round(Math.random() * (arsonarray.length - 1));
 				message.channel.send(`${message.author} burned down ${arsonarray[arsonindex]}`);
@@ -431,7 +431,7 @@ bot.on('message', async message => {
 						let question = argArr[0];
 						let len = question.split(' ').length;
 						for (i = 1; i <= len; i++) {
-						opts.shift();
+							opts.shift();
 						}
 						let resps = opts.join(' ').split(' ;; ');
 						if (resps.length > 10) {
@@ -441,8 +441,8 @@ bot.on('message', async message => {
 						embedAdvpoll.setTitle(`Poll - ${question}`)
 						console.log(`Question: ${question}`);
 						console.log(`resps.length: ${resps.length}`);
-						for (i = 0; i <= resps.length-1; i++) {
-							switch(i) {
+						for (i = 0; i <= resps.length - 1; i++) {
+							switch (i) {
 								case 0:
 									global.emo = ":one:";
 									break;
@@ -480,41 +480,41 @@ bot.on('message', async message => {
 						message.channel.send(`Your advanced poll Is ready in <#${qChannel.id}>!`).catch(console.error("sentmessage"));
 						qChannel.send(`${advpollPingRole}: New advanced poll by <@${message.author.id}>: ${question}`).catch(console.error("sendalert"));
 						qChannel.send(embedAdvpoll).then(m => {
-							for (i = 0; i <= resps.length-1; i++) {
-							switch(i) {
-								case 0:
-									m.react("1️⃣");
-									break;
-								case 1:
-									m.react("2️⃣");
-									break;
-								case 2:
-									m.react("3️⃣");
-									break;
-								case 3:
-									m.react("4️⃣");
-									break;
-								case 4:
-									m.react("5️⃣");
-									break;
-								case 5:
-									m.react("6️⃣");
-									break;
-								case 6:
-									m.react("7️⃣");
-									break;
-								case 7:
-									m.react("8️⃣");
-									break;
-								case 8:
-									m.react("9️⃣");
-									break;
-								case 9:
-									m.react("🔟");
-									break;
+							for (i = 0; i <= resps.length - 1; i++) {
+								switch (i) {
+									case 0:
+										m.react("1️⃣");
+										break;
+									case 1:
+										m.react("2️⃣");
+										break;
+									case 2:
+										m.react("3️⃣");
+										break;
+									case 3:
+										m.react("4️⃣");
+										break;
+									case 4:
+										m.react("5️⃣");
+										break;
+									case 5:
+										m.react("6️⃣");
+										break;
+									case 6:
+										m.react("7️⃣");
+										break;
+									case 7:
+										m.react("8️⃣");
+										break;
+									case 8:
+										m.react("9️⃣");
+										break;
+									case 9:
+										m.react("🔟");
+										break;
+								}
+								embedAdvpoll.addField(`${global.emo}`, `${resps[i]}`);
 							}
-							embedAdvpoll.addField(`${global.emo}`, `${resps[i]}`);
-						}
 						}).catch(console.error("AdvpollEmbedReact Error"));
 					}
 				} else {
@@ -528,7 +528,7 @@ bot.on('message', async message => {
 					let sayMsg = args.slice(1 || 0, args.length).join(" ");
 					if (!sayChannel) {
 						return message.reply(`Mention a channel first`).catch(console.error("addchannel"));
-					}	else if (!sayMsg) {
+					} else if (!sayMsg) {
 						return message.reply(`Add a poll question`).catch(console.error("addquestion"));
 					} else {
 						var embedSimpoll = new MessageEmbed()
@@ -538,52 +538,52 @@ bot.on('message', async message => {
 						message.channel.send(`Your poll Is ready in <#${sayChannel.id}>!`).catch(console.error("sentmessage"));
 						sayChannel.send(`${pollPingRole}: New poll by <@${message.author.id}>:`).catch(console.error("sendalert"));
 						sayChannel.send(embedSimpoll).then(m => {
-								m.react('👍');
-								m.react('👎');
-								m.react('🧐');
-							}).catch(console.error("SimpollEmbedReact Error"));
+							m.react('👍');
+							m.react('👎');
+							m.react('🧐');
+						}).catch(console.error("SimpollEmbedReact Error"));
 					}
 				} else {
 					return message.reply('You are not allowed to execute this command. Please ask another server member with the `@Pollers` role to create the poll for you.').catch(console.error("UserNotAllowedToCreatePoll"));
 				}
 				break;
 
-      case 'ping':
-        let pingmsg = await message.reply('Pinging...');
-        await pingmsg.edit(`PONG! Message round-trip took ${Date.now() - pingmsg.createdTimestamp}ms.`)
-        break;
+			case 'ping':
+				let pingmsg = await message.reply('Pinging...');
+				await pingmsg.edit(`PONG! Message round-trip took ${Date.now() - pingmsg.createdTimestamp}ms.`)
+				break;
 
-      // Unless you know what you're doing, don't change this command.
-      case 'help':
-        let embedHelp =  new MessageEmbed()
-          .setTitle('HELP MENU')
-          .setColor('GREEN')
-          .setFooter(`Requested by: ${message.member ? message.member.displayName : message.author.username}`, message.author.displayAvatarURL())
-          .setThumbnail(bot.user.displayAvatarURL());
-        if (!args[0])
-          embedHelp
-            .setDescription(Object.keys(commands).map(command => `\`${command.padEnd(Object.keys(commands).reduce((a, b) => b.length > a.length ? b : a, '').length)}\`: ${commands[command].description}`).join('\n')); // Change to `.join('\n\n')`?
-        else {
-          if (Object.keys(commands).includes(args[0].toLowerCase()) || Object.keys(commands).map(c => commands[c].aliases || []).flat().includes(args[0].toLowerCase())) {
-            let command = Object.keys(commands).includes(args[0].toLowerCase())? args[0].toLowerCase() : Object.keys(commands).find(c => commands[c].aliases && commands[c].aliases.includes(args[0].toLowerCase()));
-            embedHelp
-              .setTitle(`COMMAND - ${command}`)
+			// Unless you know what you're doing, don't change this command.
+			case 'help':
+				let embedHelp = new MessageEmbed()
+					.setTitle('HELP MENU')
+					.setColor('GREEN')
+					.setFooter(`Requested by: ${message.member ? message.member.displayName : message.author.username}`, message.author.displayAvatarURL())
+					.setThumbnail(bot.user.displayAvatarURL());
+				if (!args[0])
+					embedHelp
+						.setDescription(Object.keys(commands).map(command => `\`${command.padEnd(Object.keys(commands).reduce((a, b) => b.length > a.length ? b : a, '').length)}\`: ${commands[command].description}`).join('\n')); // Change to `.join('\n\n')`?
+				else {
+					if (Object.keys(commands).includes(args[0].toLowerCase()) || Object.keys(commands).map(c => commands[c].aliases || []).flat().includes(args[0].toLowerCase())) {
+						let command = Object.keys(commands).includes(args[0].toLowerCase()) ? args[0].toLowerCase() : Object.keys(commands).find(c => commands[c].aliases && commands[c].aliases.includes(args[0].toLowerCase()));
+						embedHelp
+							.setTitle(`COMMAND - ${command}`)
 
-            if (commands[command].aliases)
-              embedHelp.addField('Command aliases', `\`${commands[command].aliases.join('`, `')}\``);
-            embedHelp
-              .addField('DESCRIPTION', commands[command].description)
-              .addField('FORMAT', `\`\`\`${config.prefix}${commands[command].format}\`\`\``);
-          } else {
-            embedHelp
-              .setColor('RED')
-              .setDescription('This command does not exist. Please use the help command without specifying any commands to list them all.');
-          }
-        }
-        message.channel.send(embedHelp);
-        break;
-    }
-  }
+						if (commands[command].aliases)
+							embedHelp.addField('Command aliases', `\`${commands[command].aliases.join('`, `')}\``);
+						embedHelp
+							.addField('DESCRIPTION', commands[command].description)
+							.addField('FORMAT', `\`\`\`${config.prefix}${commands[command].format}\`\`\``);
+					} else {
+						embedHelp
+							.setColor('RED')
+							.setDescription('This command does not exist. Please use the help command without specifying any commands to list them all.');
+					}
+				}
+				message.channel.send(embedHelp);
+				break;
+		}
+	}
 });
 
 require('./server')();

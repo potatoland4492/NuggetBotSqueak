@@ -33,12 +33,12 @@ module.exports = {
 		description: 'Creates a new poll and pings everyone with the **@PollPingers** role. This command is only available for **@Pollers**.',
 		format: 'simpoll <poll-channel> <Question to be asked in the poll?>'
 	},
- 	'help': {
-  		description: 'Shows the list of commands or help on specified command.',
-    		format: 'help [command-name]'
-  	},
-  	'ping': {
-    		description: 'Checks connectivity with discord\'s servers.',
-    		format: 'ping'
-  	}
+	'help': {
+		description: 'Shows the list of commands or help on specified command.',
+		format: 'help [command-name]'
+	},
+	'ping': {
+		description: 'Checks connectivity with discord\'s servers.',
+		format: 'ping'
+	}
 }
