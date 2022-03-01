@@ -3,7 +3,8 @@ console.log("Including libraries;");
 const { Client, MessageEmbed, Permissions } = require('discord.js');
 const config = require('./config');
 const commands = require('./help');
-
+const Database = require("@replit/database")
+const db = new Database();
 
 const version = 'v2.1.0 stable';
 const id = '817214551740776479';
@@ -11,9 +12,12 @@ const invite = 'https://discord.com/api/oauth2/authorize?client_id=9157265056639
 const gitrepo = 'https://github.com/potatoland4492/NuggetBotSqueak';
 
 // Developer Mode
-const devmode = false;
-// Run ID: https://passwordsgenerator.net/?length=6&symbols=0&numbers=1&lowercase=1&uppercase=0&similar=1&ambiguous=1&client=1&autoselect=1
-const runid = '0006';
+const devmode = true;
+// Run ID (for checking if changes are loaded)
+db.set("runid", 19).then(() => {});
+db.get("runid").then(value => {global.oldrunid = value;});
+global.runid = global.oldrunid + 1;
+db.set("runid", global.runid).then(() => {});
 
 // Leafy's Discord ID
 const leafid = '489608179810959390';
@@ -59,7 +63,7 @@ function dat() {
 }
 
 bot.on('ready', () => {
-	console.log(`Logged in as ${bot.user.tag} at ${dat()}.`);
+	console.log(`Logged in at ${dat()}.`);
 	if (devmode) {
 		bot.user.setPresence({
 			status: 'idle',
@@ -70,9 +74,9 @@ bot.on('ready', () => {
 		});
 		console.log("Mode: Developer;");
 	} else {
-		console.log("Mode: Stable;")
+		console.log("Mode: Stable;");
 	}
-	console.log(`Run ID: ${runid}`);
+	console.log(`Run ID: ${global.runid};`);
 });
 
 bot.on("error", (e) => console.error(e));
@@ -80,7 +84,7 @@ bot.on("warn", (e) => console.warn(e));
 
 bot.on('guildCreate', async guild => {
 	guild.systemChannel.send(new MessageEmbed()
-		.setTitle("NuggetBotSqueak is here!")
+		.setTitle("**NuggetBotSqueak** is here!")
 		.setDescription(`Basic commands: \`;help\`, \`;version\`, \`;status\``)
 	);
 });
@@ -290,8 +294,8 @@ bot.on('message', async message => {
 	if (message.content.startsWith(config.prefix)) {
 		if (message.author.bot) {
 			return;
-		} else if (devmode && message.author.id != id) {
-			message.reply("Developer Mode is on. You are not allowed to use this bot.");
+		} else if (devmode && message.author.id != devids[0] && message.author.id != devids[1]) {
+			message.reply("Developer Mode is on. You cannot use this bot until it is taken out of Developer Mode.");
 			return;
 		}
 		let args = message.content.slice(config.prefix.length).split(' ');
@@ -364,7 +368,6 @@ bot.on('message', async message => {
 				break;
 
 			case 'invite':
-			case 'link':
 				message.channel.send(new MessageEmbed()
 					.setTitle("Bot Invite Page")
 					.setDescription(invite)
@@ -377,7 +380,7 @@ bot.on('message', async message => {
 			case 'status':
 				message.channel.send(new MessageEmbed()
 					.setTitle("Status Page")
-					.setDescription("https://stats.uptimerobot.com/oJ59mUD826")
+					.setDescription("https://stats.uptimerobot.com/mVNkMtpL4v")
 					.setColor("#ff00ff")
 					.setFooter(`Requested by: ${message.member ? message.member.displayName : message.author.username}`, message.author.displayAvatarURL())
 					.setThumbnail(bot.user.displayAvatarURL())
@@ -392,7 +395,11 @@ bot.on('message', async message => {
 				break;
 
 			case 'guild':
-				guild.fetch();
+				if (message.channel.type === "dm") {
+					message.reply("This is a DM channel. `;guild` will not work here.");
+					break;
+				}
+				message.channel.guild.fetch();
 				message.channel.send(new MessageEmbed()
 					.setTitle("Guild Info")
 					.setColor('PURPLE')
@@ -405,7 +412,7 @@ bot.on('message', async message => {
 					Rules Channel: ${guild.rulesChannel}
 					System Channel: ${guild.systemChannel}
 					AFK Voice Channel: ${guild.afkChannel}
-					AFK Timeout: ${guild.afkTimeout}
+					AFK Timeout (seconds): ${guild.afkTimeout}
 					Default Notification Level: ${guild.defaultMessageNotifications}
 					NuggetBotSqueak Join Timestamp: ${fromdat(guild.joinedAt)}
 					Maximum Members: ${guild.maximumMembers}
@@ -556,27 +563,26 @@ bot.on('message', async message => {
 			// Unless you know what you're doing, don't change this command.
 			case 'help':
 				let embedHelp = new MessageEmbed()
-					.setTitle('HELP MENU')
-					.setColor('GREEN')
+					.setTitle('Alphabetical List of Commands')
+					.setColor('#00ff00')
 					.setFooter(`Requested by: ${message.member ? message.member.displayName : message.author.username}`, message.author.displayAvatarURL())
 					.setThumbnail(bot.user.displayAvatarURL());
 				if (!args[0])
 					embedHelp
-						.setDescription(Object.keys(commands).map(command => `\`${command.padEnd(Object.keys(commands).reduce((a, b) => b.length > a.length ? b : a, '').length)}\`: ${commands[command].description}`).join('\n')); // Change to `.join('\n\n')`?
+						.setDescription(Object.keys(commands).map(command => `\`${command.padEnd(Object.keys(commands).reduce((a, b) => b.length > a.length ? b : a, '').length)}\`: ${commands[command].description}`).join('\n'));
 				else {
 					if (Object.keys(commands).includes(args[0].toLowerCase()) || Object.keys(commands).map(c => commands[c].aliases || []).flat().includes(args[0].toLowerCase())) {
 						let command = Object.keys(commands).includes(args[0].toLowerCase()) ? args[0].toLowerCase() : Object.keys(commands).find(c => commands[c].aliases && commands[c].aliases.includes(args[0].toLowerCase()));
-						embedHelp
-							.setTitle(`COMMAND - ${command}`)
-
+						embedHelp.setTitle(`Command — ${command}`)
 						if (commands[command].aliases)
 							embedHelp.addField('Command aliases', `\`${commands[command].aliases.join('`, `')}\``);
 						embedHelp
-							.addField('DESCRIPTION', commands[command].description)
-							.addField('FORMAT', `\`\`\`${config.prefix}${commands[command].format}\`\`\``);
+							.setDescription("In `;command <required> or [optional]`, you would literally type `;command`, followed by a required argument (`<required>`), then literally type `or`, and finish with an optional argument (`[optional]`). Here is a possible command: `;command asdf or jkl`")
+							.addField('Description', commands[command].description)
+							.addField('Command Usage', `\`\`\`${config.prefix}${commands[command].format}\`\`\``);
 					} else {
 						embedHelp
-							.setColor('RED')
+							.setColor('#ff0000')
 							.setDescription('This command does not exist. Please use the help command without specifying any commands to list them all.');
 					}
 				}
